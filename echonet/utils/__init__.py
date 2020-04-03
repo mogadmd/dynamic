@@ -96,7 +96,7 @@ def get_mean_and_std(dataset: torch.utils.data.Dataset,
     Returns:
        A tuple of the mean and standard deviation. Both are represented as np.array's of dimension (channels,).
     """
-
+    print(dataset)
     if samples is not None and len(dataset) > samples:
         indices = np.random.choice(len(dataset), samples, replace=False)
         dataset = torch.utils.data.Subset(dataset, indices)
