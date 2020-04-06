@@ -13,7 +13,7 @@ import tqdm
 
 import echonet
 
-
+import pdb
 def run(num_epochs=45,
         modelname="r2plus1d_18",
         tasks="EF",
@@ -93,7 +93,7 @@ def run(num_epochs=45,
     if lr_step_period is None:
         lr_step_period = math.inf
     scheduler = torch.optim.lr_scheduler.StepLR(optim, lr_step_period)
-
+    pdb.set_trace()
     # Compute mean and std
     mean, std = echonet.utils.get_mean_and_std(echonet.datasets.Echo(split="train"))
     kwargs = {"target_type": tasks,
