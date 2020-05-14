@@ -65,7 +65,7 @@ def run(num_epochs=45,
         run_test (bool, optional): Whether or not to run on test.
             Defaults to False.
     """
-
+    pdb.set_trace()
     # Seed RNGs
     np.random.seed(seed)
     torch.manual_seed(seed)

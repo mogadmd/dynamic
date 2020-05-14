@@ -95,16 +95,20 @@ class Echo(torch.utils.data.Dataset):
             self.fnames = sorted(os.listdir(self.external_test_location))
         else:
             with open(self.folder / "FileList.csv") as f:
+                # read header of csv file and split it into array of strings
                 self.header = f.readline().strip().split(",")
+                # get indices for FileName and Split
                 filenameIndex = self.header.index("FileName")
                 splitIndex = self.header.index("Split")
-
+                # go through each row in the file
                 for line in f:
+                    # split the values into an array
                     lineSplit = line.strip().split(',')
-
+                    # get fileName and fileMode(the value of 'split')
                     fileName = lineSplit[filenameIndex]
                     fileMode = lineSplit[splitIndex].lower()
-
+                    # if the value of split passed to this method is either "all" or the filemode for this sample and
+                    # the file exists add the file to fnames
                     if split in ["all", fileMode] and os.path.exists(self.folder / "Videos" / fileName):
                         self.fnames.append(fileName)
                         self.outcome.append(lineSplit)
