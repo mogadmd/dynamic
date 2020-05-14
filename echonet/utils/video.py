@@ -177,6 +177,7 @@ def run(num_epochs=45,
 
         if run_test:
             for split in ["val", "test"]:
+                torch.cuda.empty_cache()
                 # Performance without test-time augmentation
                 dataloader = torch.utils.data.DataLoader(
                     echonet.datasets.Echo(split=split, **kwargs),
