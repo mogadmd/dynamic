@@ -176,7 +176,7 @@ def run(num_epochs=45,
         f.flush()
 
         if run_test:
-            for split in ["val", "test"]:
+            for split in ["test", "val"]:
                 torch.cuda.empty_cache()
                 # Performance without test-time augmentation
                 dataloader = torch.utils.data.DataLoader(
