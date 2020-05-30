@@ -65,7 +65,6 @@ def run(num_epochs=45,
         run_test (bool, optional): Whether or not to run on test.
             Defaults to False.
     """
-    pdb.set_trace()
     # Seed RNGs
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -93,7 +92,6 @@ def run(num_epochs=45,
     if lr_step_period is None:
         lr_step_period = math.inf
     scheduler = torch.optim.lr_scheduler.StepLR(optim, lr_step_period)
-    pdb.set_trace()
     # Compute mean and std
     mean, std = echonet.utils.get_mean_and_std(echonet.datasets.Echo(split="train"))
     kwargs = {"target_type": tasks,
@@ -176,8 +174,9 @@ def run(num_epochs=45,
         f.flush()
 
         if run_test:
+            pdb.set_trace()
             for split in ["test", "val"]:
-                torch.cuda.empty_cache()
+                # torch.cuda.empty_cache()
                 # Performance without test-time augmentation
                 dataloader = torch.utils.data.DataLoader(
                     echonet.datasets.Echo(split=split, **kwargs),
