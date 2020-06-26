@@ -174,8 +174,10 @@ def run(num_epochs=45,
         f.flush()
 
         if run_test:
-            pdb.set_trace()
             for split in ["test", "val"]:
+                for i in range(torch.cuda.device_count()):
+                    torch.cuda.reset_max_memory_allocated(i)
+                    torch.cuda.reset_max_memory_cached(i)
                 # torch.cuda.empty_cache()
                 # Performance without test-time augmentation
                 dataloader = torch.utils.data.DataLoader(
