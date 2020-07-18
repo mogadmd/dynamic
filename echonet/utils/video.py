@@ -81,6 +81,18 @@ def run(num_epochs=45,
     # Set up model
     model = torchvision.models.video.__dict__[modelname](pretrained=pretrained)
 
+    # freeze the first two layers
+    child_counter = 0
+    for child in model.children():
+        if child_counter < 2:
+            print("child ", child_counter, " was frozen")
+            for param in child.parameters():
+                param.requires_grad = False
+
+
+        else:
+            print("child ", child_counter, " was not frozen")
+        child_counter += 1
     model.fc = torch.nn.Linear(model.fc.in_features, 1)
     model.fc.bias.data[0] = 55.6
     if device.type == "cuda":
@@ -88,7 +100,7 @@ def run(num_epochs=45,
     model.to(device)
 
     # Set up optimizer
-    optim = torch.optim.SGD(model.parameters(), lr=1e-4, momentum=0.9, weight_decay=1e-4)
+    optim = torch.optim.SGD(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-4, momentum=0.9, weight_decay=1e-4)
     if lr_step_period is None:
         lr_step_period = math.inf
     scheduler = torch.optim.lr_scheduler.StepLR(optim, lr_step_period)
