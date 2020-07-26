@@ -132,7 +132,7 @@ def run(num_epochs=45,
         bestLoss = float("inf")
         try:
             # Attempt to load checkpoint
-            checkpoint = torch.load(os.path.join(output, "checkpoint.pt"))
+            checkpoint = torch.load(os.path.join(output, "checkpoint.pt"),  map_location=torch.device('cpu'))
             model.load_state_dict(checkpoint['state_dict'])
             optim.load_state_dict(checkpoint['opt_dict'])
             scheduler.load_state_dict(checkpoint['scheduler_dict'])
