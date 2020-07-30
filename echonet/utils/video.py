@@ -81,10 +81,10 @@ def run(num_epochs=45,
     # Set up model
     model = torchvision.models.video.__dict__[modelname](pretrained=pretrained)
 
-    # freeze the first two layers
+    # freeze the first four layers
     child_counter = 0
     for child in model.children():
-        if child_counter < 2:
+        if child_counter < 4:
             print("child ", child_counter, " was frozen")
             for param in child.parameters():
                 param.requires_grad = False
