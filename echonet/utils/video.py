@@ -14,7 +14,7 @@ import tqdm
 import echonet
 
 
-def run(num_epochs=45,
+def run(test_type = "val", num_epochs=45,
         modelname="r2plus1d_18",
         tasks="EF",
         frames=32,
@@ -65,7 +65,8 @@ def run(num_epochs=45,
         run_test (bool, optional): Whether or not to run on test.
             Defaults to False.
     """
-
+    if test_type not in ["val", "test"]:
+        raise Exception("test_type must be either \"val\" or \"test\"")
     # Seed RNGs
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -176,7 +177,7 @@ def run(num_epochs=45,
         f.flush()
 
         if run_test:
-            for split in ["val", "test"]:
+            for split in test_type:
                 # Performance without test-time augmentation
                 dataloader = torch.utils.data.DataLoader(
                     echonet.datasets.Echo(split=split, **kwargs),
