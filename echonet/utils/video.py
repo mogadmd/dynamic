@@ -177,7 +177,7 @@ def run(test_type = "val", num_epochs=45,
         f.flush()
 
         if run_test:
-            for split in test_type:
+            for split in [test_type]:
                 # Performance without test-time augmentation
                 dataloader = torch.utils.data.DataLoader(
                     echonet.datasets.Echo(split=split, **kwargs),
