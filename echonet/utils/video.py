@@ -14,7 +14,7 @@ import tqdm
 import echonet
 
 import pdb
-def run(test_type="validation",
+def run(test_type="val",
         num_epochs=45,
         modelname="r2plus1d_18",
         tasks="EF",
