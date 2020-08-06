@@ -14,7 +14,8 @@ import tqdm
 import echonet
 
 import pdb
-def run(num_epochs=45,
+def run(test_type="validation",
+        num_epochs=45,
         modelname="r2plus1d_18",
         tasks="EF",
         frames=32,
@@ -186,7 +187,7 @@ def run(num_epochs=45,
         f.flush()
 
         if run_test:
-            for split in ["test", "val"]:
+            for split in [test_type]:
                 for i in range(torch.cuda.device_count()):
                     torch.cuda.reset_max_memory_allocated(i)
                     torch.cuda.reset_max_memory_cached(i)
