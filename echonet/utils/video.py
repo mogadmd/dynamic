@@ -175,9 +175,10 @@ def run(num_epochs=45,
 
         if run_test:
             for split in ["test", "val"]:
-                for i in range(torch.cuda.device_count()):
-                    torch.cuda.reset_max_memory_allocated(i)
-                    torch.cuda.reset_max_memory_cached(i)
+                print(split)
+                # for i in range(torch.cuda.device_count()):
+                #     torch.cuda.reset_max_memory_allocated(i)
+                #     torch.cuda.reset_max_memory_cached(i)
                 # torch.cuda.empty_cache()
                 # Performance without test-time augmentation
                 dataloader = torch.utils.data.DataLoader(
@@ -188,7 +189,7 @@ def run(num_epochs=45,
                 f.write("{} (one clip) MAE:  {:.2f} ({:.2f} - {:.2f})\n".format(split, *echonet.utils.bootstrap(y, yhat, sklearn.metrics.mean_absolute_error)))
                 f.write("{} (one clip) RMSE: {:.2f} ({:.2f} - {:.2f})\n".format(split, *tuple(map(math.sqrt, echonet.utils.bootstrap(y, yhat, sklearn.metrics.mean_squared_error)))))
                 f.flush()
-
+                torch.cuda.empty_cache()
                 # Performance with test-time augmentation
                 ds = echonet.datasets.Echo(split=split, **kwargs, clips="all")
                 dataloader = torch.utils.data.DataLoader(
