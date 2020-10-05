@@ -14,7 +14,7 @@ import tqdm
 import echonet
 
 
-def run(test_type = "val", num_epochs=45,
+def run(num_epochs=45,
         modelname="r2plus1d_18",
         tasks="EF",
         frames=32,
@@ -177,7 +177,7 @@ def run(test_type = "val", num_epochs=45,
         f.flush()
 
         if run_test:
-            for split in [test_type]:
+            for split in ['test', 'val']:
                 # Performance without test-time augmentation
                 dataloader = torch.utils.data.DataLoader(
                     echonet.datasets.Echo(split=split, **kwargs),
