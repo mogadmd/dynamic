@@ -65,8 +65,7 @@ def run(num_epochs=45,
         run_test (bool, optional): Whether or not to run on test.
             Defaults to False.
     """
-    if test_type not in ["val", "test"]:
-        raise Exception("test_type must be either \"val\" or \"test\"")
+
     # Seed RNGs
     np.random.seed(seed)
     torch.manual_seed(seed)
